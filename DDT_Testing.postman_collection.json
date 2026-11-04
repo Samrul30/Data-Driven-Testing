@@ -1,0 +1,139 @@
+{
+  "info": {
+    "_postman_id": "7b12f7d3-dbba-47e9-854d-a739fdcd1590",
+    "name": "DDT_Testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58436449",
+    "_collection_link": "https://go.postman.co/collection/58436449-7b12f7d3-dbba-47e9-854d-a739fdcd1590?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create_Booking",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var responseBody = pm.response.json(); \r",
+              "pm.environment.set('id',responseBody.bookingid)\r",
+              "\r",
+              "pm.test(\"Verify that the status code is 200\",function(){\r",
+              "    pm.expect(pm.response.code).to.eql(200)\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify that the response time is showing as expected or not \",function(){\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000)\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify that the file size is showing as expected or not \",function(){\r",
+              "    pm.expect(pm.response.responseSize).to.be.below(1000)\r",
+              "});\r",
+              "\r",
+              "\r",
+              "var responsbody = pm.response.json();\r",
+              "pm.test(\"Verify that the firstame is showing as expected or not \",function(){\r",
+              "    pm.expect(pm.environment.get(\"fName\")).to.eql(responsbody.booking.firstname);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify that the lastname is showing as expected or not \",function(){\r",
+              "    pm.expect(pm.environment.get(\"lName\")).to.eql(responsbody.booking.lastname);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify that the total price is showing as expected or not \",function(){\r",
+              "    pm.expect(pm.environment.get(\"tprice\")).to.eql(responsbody.booking.totalprice);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "pm.test(\"Verify that the deposit paid is showing as expected or not \",function(){\r",
+              "    pm.expect(pm.environment.get(\"boole\")).to.eql(responsbody.booking.depositpaid.toString());\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify that the checkIn date is showing as expected or not \",function(){\r",
+              "    pm.expect(pm.environment.get(\"checkIndata\")).to.eql(responsbody.booking.bookingdates.checkin.toString());\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify that the checkOut date is showing as expected or not \",function(){\r",
+              "    pm.expect(pm.environment.get(\"checkOutdata\")).to.eql(responsbody.booking.bookingdates.checkout.toString());\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify that the additional needs is showing as expected or not \",function(){\r",
+              "    pm.expect(pm.environment.get(\"needs\")).to.eql(responsbody.booking.additionalneeds.toString());\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "//fetch data",
+              "",
+              "var first_name = pm.iterationData.get('firstname');",
+              "pm.environment.set('fName', first_name);",
+              "",
+              "var last_name = pm.iterationData.get('lastname');",
+              "pm.environment.set('lName', last_name);",
+              "",
+              "var total_price = pm.iterationData.get('totalprice');",
+              "pm.environment.set('tprice', total_price);",
+              "",
+              "var deposit_paid = pm.iterationData.get('depositpaid');",
+              "pm.environment.set('boole', deposit_paid);",
+              "",
+              "var CheckIn = pm.iterationData.get('checkin');",
+              "pm.environment.set('checkIndata', CheckIn);",
+              "",
+              "var CheckOut = pm.iterationData.get('checkout');",
+              "pm.environment.set('checkOutdata', CheckOut);",
+              "",
+              "var add = pm.iterationData.get('additionalneeds');",
+              "pm.environment.set('needs', add);",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\" : \"{{fName}}\",\r\n    \"lastname\" : \"{{lName}}\",\r\n    \"totalprice\" : {{tprice}},\r\n    \"depositpaid\" : {{boole}},\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"{{checkIndata}}\",\r\n        \"checkout\" : \"{{checkOutdata}}\"\r\n    },\r\n    \"additionalneeds\" : \"{{needs}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://restful-booker.herokuapp.com/booking",
+          "protocol": "https",
+          "host": [
+            "restful-booker",
+            "herokuapp",
+            "com"
+          ],
+          "path": [
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

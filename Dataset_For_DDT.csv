@@ -1,0 +1,7 @@
+firstname,lastname,totalprice,depositpaid,checkin,checkout,additionalneeds
+Rubel,Hosain,501,true,2025-03-28,2025-04-03,Lunch
+Nihal,Sarker,702,false,2025-03-30,2025-04-05,Breakfast
+Rahim,Islam,503,true,2025-05-03,2025-03-06,Dinner
+Moinul,Hasan,103,false,2025-03-30,2025-04-05,Lunch
+Kamal,Islam,406,true,2025-03-28,2025-04-03,Dinner
+Sadia,Akter,403,true,2025-03-29,2025-04-04,Dinner
